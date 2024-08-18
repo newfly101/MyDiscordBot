@@ -3,7 +3,7 @@ const express = require('express');
 const WebSocket = require('ws');
 const cors = require('cors');
 
-const config = require('./config');
+const config = require('./Config');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
