@@ -1,16 +1,8 @@
 const {REST, Routes, Client, GatewayIntentBits, PermissionsBitField} = require('discord.js');
-const express = require('express');
-
-const cors = require('cors');
 
 const config = require('./Config');
-const setupWebSocket = require("./WebSocketServer");
+const expressServer = require("./ExpressServer");
 
-const app = express();
-const PORT = 3001;
-
-
-// const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -27,21 +19,10 @@ const commands = [
 
 const rest = new REST({version: '10'}).setToken(config.TOKEN);
 
-async function main() {
-    try {
-        console.log('Started refreshing application (/) commands.');
 
-        await rest.put(Routes.applicationCommands(config.CLIENT_ID), {body: commands});
-
-        console.log('Successfully reloaded application (/) commands.');
-    } catch (error) {
-        console.error(error);
-    }
-}
 
 client.once('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
-
     try {
         // Guild 및 Channel 객체 가져오기
         const guild = client.guilds.cache.get(config.GUILD_ID);
@@ -49,7 +30,6 @@ client.once('ready', async () => {
             console.log('Guild not found');
             return;
         }
-
         const channel = guild.channels.cache.get(config.CHANNEL_ID);
         if (!channel) {
             console.log('Channel not found');
@@ -67,7 +47,6 @@ client.once('ready', async () => {
                 ]
             }
         ];
-
         await channel.permissionOverwrites.set(permissions);
         console.log('Permissions updated');
     } catch (error) {
@@ -92,30 +71,26 @@ client.on('messageCreate', message => {
 
 client.login(config.TOKEN);
 
-main();
+async function myBot() {
+    try {
+        console.log('Started refreshing application (/) commands.');
 
-const logs = [];
+        await rest.put(Routes.applicationCommands(config.CLIENT_ID), {body: commands});
 
-function logToArray(...args) {
-    const message = args.join(' ');
-    logs.push(message);
-    console.info(message);
+        console.log('Successfully reloaded application (/) commands.');
+    } catch (error) {
+        console.error(error);
+    }
 }
 
-console.log = logToArray;
-console.error = (...args) => logToArray('ERROR', ...args);
+myBot();
+expressServer();
 
-app.use(cors());
 
-app.get('/logs', (req, res) => {
-    res.json(logs);
-})
 
-const server = app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
 
-setupWebSocket(server, PORT);
+
+
 
 
 
