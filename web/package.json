@@ -22,7 +22,7 @@
   "scripts": {
     "start": "concurrently \"npm run start:web\" \"npm run start:bot\"",
     "start:web": "react-app-rewired start",
-    "start:bot": "cross-env PORT=3001 node MyBot.js",
+    "start:bot": "cross-env PORT=3001 node src/discord/MyBot.js",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"

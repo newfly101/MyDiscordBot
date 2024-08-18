@@ -1,18 +1,9 @@
 const {REST, Routes, Client, GatewayIntentBits, PermissionsBitField} = require('discord.js');
 const express = require('express');
-const path = require('path');
 const WebSocket = require('ws');
-const fs = require('fs');
 const cors = require('cors');
 
-// JSON 파일 경로
-const configPath = path.join(__dirname, 'config.json');
-const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-
-const TOKEN = config.TOKEN;
-const CLIENT_ID = config.CLIENT_ID;
-const GUILD_ID = config.GUILD_ID;
-const CHANNEL_ID = config.CHANNEL_ID;
+const config = require('./config');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -32,13 +23,13 @@ const commands = [
     },
 ];
 
-const rest = new REST({version: '10'}).setToken(TOKEN);
+const rest = new REST({version: '10'}).setToken(config.TOKEN);
 
 async function main() {
     try {
         console.log('Started refreshing application (/) commands.');
 
-        await rest.put(Routes.applicationCommands(CLIENT_ID), {body: commands});
+        await rest.put(Routes.applicationCommands(config.CLIENT_ID), {body: commands});
 
         console.log('Successfully reloaded application (/) commands.');
     } catch (error) {
@@ -51,13 +42,13 @@ client.once('ready', async () => {
 
     try {
         // Guild 및 Channel 객체 가져오기
-        const guild = client.guilds.cache.get(GUILD_ID);
+        const guild = client.guilds.cache.get(config.GUILD_ID);
         if (!guild) {
             console.log('Guild not found');
             return;
         }
 
-        const channel = guild.channels.cache.get(CHANNEL_ID);
+        const channel = guild.channels.cache.get(config.CHANNEL_ID);
         if (!channel) {
             console.log('Channel not found');
             return;
@@ -97,7 +88,7 @@ client.on('messageCreate', message => {
     console.log(`[${message.author.id}]${message.author.username} : ${message.content}`);
 });
 
-client.login(TOKEN);
+client.login(config.TOKEN);
 
 main();
 
