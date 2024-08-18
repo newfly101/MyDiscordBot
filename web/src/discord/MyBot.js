@@ -1,12 +1,14 @@
 const {REST, Routes, Client, GatewayIntentBits, PermissionsBitField} = require('discord.js');
 const express = require('express');
-const WebSocket = require('ws');
+
 const cors = require('cors');
 
 const config = require('./Config');
+const setupWebSocket = require("./WebSocketServer");
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = 3001;
+
 
 // const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const client = new Client({
@@ -113,19 +115,8 @@ const server = app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-const wss = new WebSocket.Server({server});
+setupWebSocket(server, PORT);
 
-wss.on('connection', (ws) => {
-    console.log('Client connected');
-    console.log = (...args) => {
-        ws.send(args.join(' '));
-        console.info(...args);
-    };
-    console.error = (...args) => {
-        ws.send(`ERROR: ${args.join(' ')}`);
-        console.error(...args);
-    };
-});
 
 
 
