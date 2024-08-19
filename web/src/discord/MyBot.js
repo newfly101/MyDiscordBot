@@ -2,6 +2,7 @@ const {REST, Routes, Client, GatewayIntentBits, PermissionsBitField} = require('
 
 const config = require('./Config');
 const expressServer = require("./ExpressServer");
+const getCommands = require('./module/GetCommands');
 
 const client = new Client({
     intents: [
@@ -17,7 +18,7 @@ const commands = [
     },
 ];
 
-const rest = new REST({version: '10'}).setToken(config.TOKEN);
+
 
 
 
@@ -60,7 +61,7 @@ client.on('interactionCreate', async interaction => {
     if (interaction.commandName === 'ping') {
         await interaction.reply('Pong!');
 
-        logToArray(`[${new Date().toISOString()}] Command executed: ping, replied with Pong!`);
+        // logToArray(`[${new Date().toISOString()}] Command executed: ping, replied with Pong!`);
     }
 });
 
@@ -71,19 +72,8 @@ client.on('messageCreate', message => {
 
 client.login(config.TOKEN);
 
-async function myBot() {
-    try {
-        console.log('Started refreshing application (/) commands.');
 
-        await rest.put(Routes.applicationCommands(config.CLIENT_ID), {body: commands});
-
-        console.log('Successfully reloaded application (/) commands.');
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-myBot();
+getCommands(commands); // commands works
 expressServer();
 
 
