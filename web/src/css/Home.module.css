@@ -1,0 +1,22 @@
+.container {
+    min-height: 80px;
+    background-color: orange;
+    margin: 0 20px;
+}
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    padding: 5px;
+}
+.profile img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.profile label {
+    font-weight: bold;
+}

@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import Friends from "./Friends";
 
 const Home = () => {
     const [logs, setLogs] = useState([]);
@@ -21,6 +22,7 @@ const Home = () => {
 
     return (
         <div>
+            <Friends />
             <h1>Discord Bot Logs</h1>
             <div>
                 {logs && logs.map((log, index) => (
