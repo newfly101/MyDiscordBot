@@ -36,6 +36,7 @@ th {
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    padding: 20px 0 0 10px;
 }
 .myProfile {
     width: 350px;
@@ -53,6 +54,7 @@ th {
 }
 .howAbout {
     width: 36px;
+    cursor: pointer;
 }
 .content {
     display: flex;
