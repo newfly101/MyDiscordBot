@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Friends from "./Friends";
+import classes from "../css/Home.module.css";
 
 const Home = () => {
     const [logs, setLogs] = useState([]);
@@ -15,14 +16,16 @@ const Home = () => {
                 console.log('Error fetching logs', error);
             }
         }
+
         const interval = setInterval(getLogs, 5000);
 
         return () => clearInterval(interval);
     }, []);
 
     return (
-        <div>
-            <Friends />
+        <div className={classes.container}>
+            <Friends/>
+
             <h1>Discord Bot Logs</h1>
             <div>
                 {logs && logs.map((log, index) => (
