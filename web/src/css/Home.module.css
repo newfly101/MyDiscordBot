@@ -6,21 +6,57 @@
     align-items: center;
     justify-content: center;
 }
-.profile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+th {
+    padding: 0;
     justify-content: center;
-    width: 70px;
-    padding: 5px;
+    align-items: center;
 }
-.profile img {
+.profileImg {
     width: 50px;
     height: 50px;
     object-fit: cover;
     border-radius: 50%;
     cursor: pointer;
+    background-color: #e8e8e8;
+    margin: 0 5px 5px 0;
 }
-.profile label {
+.myProfileImg {
+    width: 62px;
+    height: 62px;
+    object-fit: cover;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #e8e8e8;
+}
+.profileLabel {
     font-weight: bold;
+}
+.miniProfile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+.myProfile {
+    width: 350px;
+    height: 100%;
+    white-space: nowrap;
+    padding: 0 0 0 10px;
+}
+.profileTitle {
+    margin: 0;
+    padding: 0 0 5px 0;
+}
+.profileText {
+    color: lightslategray;
+    font-size: 14px;
+}
+.howAbout {
+    width: 36px;
+}
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 62px;
 }
