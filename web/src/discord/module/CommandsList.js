@@ -2,7 +2,6 @@ const {Collection} = require("discord.js");
 
 function commandsList(client) {
     // command collection create
-    client.commands = new Collection();
     client.aliases = new Collection();
 
     // command register : ex) ping

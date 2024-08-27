@@ -9,6 +9,11 @@ const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
 });
 
+// 명령어 컬렉션 초기화
+client.commands = new Collection();
+// 명령어 등록
+commandsList(client);
+
 client.once('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
     try {
@@ -30,8 +35,9 @@ client.once('ready', async () => {
         }];
         await channel.permissionOverwrites.set(permissions);
         console.log('우주봇 권한 업데이트 완료!');
+
         // 봇 커맨드 설정 (명령어 설정)
-        commandsList(client);
+        // commandsList(client);
 
         /** 슬래시 커맨드인 경우에만 필요한 코드임
         // getCommands(client);
@@ -65,14 +71,29 @@ client.on('interactionCreate', async interaction => {
     // }
 });
 
-client.on('messageCreate', message => {
-    if (message.author.bot) return;
+client.on('messageCreate', async message => {
+    const prefix = '!';
     console.log(`[${message.author.id}]${message.author.username} : ${message.content}`);
+    // 봇이 봇의 명령어에 응답하는 경우 방지
+    if (message.author.bot) return;
+    // `!`로 시작하지 않는 경우 응답 방지
+    if(!message.content.startsWith(prefix)) return;
+
+    const args = message.content.slice(prefix.length).trim().split(/ +/);
+    const commandName = args.shift().toLowerCase();
+    const command = client.commands.get(commandName) || client.commands.get(client.aliases.get(commandName));
+
+    if (!command) return;
+
+    try {
+        await command.execute(message, args);
+    } catch (error) {
+        console.error(error);
+        await message.reply('There was an error trying to execute that command!');
+    }
 });
 
 client.login(config.TOKEN);
-
-
 
 expressServer();
 
