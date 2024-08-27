@@ -1,26 +1,13 @@
-const {REST, Routes, Client, GatewayIntentBits, PermissionsBitField} = require('discord.js');
+const {Client, GatewayIntentBits, PermissionsBitField, Collection} = require('discord.js');
 
 const config = require('./Config');
 const expressServer = require("./ExpressServer");
 const getCommands = require('./module/GetCommands');
+const commandsList = require("./module/CommandsList");
 
 const client = new Client({
-    intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent
-    ]
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
 });
-const commands = [
-    {
-        name: 'ping',
-        description: 'Replies with Pong!',
-    },
-];
-
-
-
-
 
 client.once('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -36,33 +23,46 @@ client.once('ready', async () => {
             console.log('Channel not found');
             return;
         }
-
         // 권한 설정
-        const permissions = [
-            {
-                id: client.user.id, // 봇 사용자 ID
-                allow: [
-                    PermissionsBitField.Flags.ViewChannel,
-                    PermissionsBitField.Flags.SendMessages,
-                    PermissionsBitField.Flags.ReadMessageHistory
-                ]
-            }
-        ];
+        const permissions = [{
+            id: client.user.id, // 봇 사용자 ID
+            allow: [PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ReadMessageHistory]
+        }];
         await channel.permissionOverwrites.set(permissions);
-        console.log('Permissions updated');
+        console.log('우주봇 권한 업데이트 완료!');
+        // 봇 커맨드 설정 (명령어 설정)
+        commandsList(client);
+
+        /** 슬래시 커맨드인 경우에만 필요한 코드임
+        // getCommands(client);
+        **/
+
+        client.category = ['bot', 'moderator'];
+
     } catch (error) {
         console.error('Error updating permissions:', error);
     }
 });
 
+
+
 client.on('interactionCreate', async interaction => {
     if (!interaction.isChatInputCommand()) return;
 
-    if (interaction.commandName === 'ping') {
-        await interaction.reply('Pong!');
-
-        // logToArray(`[${new Date().toISOString()}] Command executed: ping, replied with Pong!`);
+    const command = client.commands.get(interaction.commandName);
+    if (command) {
+        await command.execute(interaction);
+    } else {
+        await interaction.reply('$$$$$$존재하지 않는 명령어 입니다.');
     }
+    // if (interaction.commandName === 'ping') {
+    //     await interaction.reply('Pong!');
+    //
+    //     // logToArray(`[${new Date().toISOString()}] Command executed: ping, replied with Pong!`);
+    // }
+    // if (interaction.commandName === '명령어') {
+    //     await interaction.reply(commandsList.map((list) => list.name));
+    // }
 });
 
 client.on('messageCreate', message => {
@@ -73,7 +73,7 @@ client.on('messageCreate', message => {
 client.login(config.TOKEN);
 
 
-getCommands(commands); // commands works
+
 expressServer();
 
 
