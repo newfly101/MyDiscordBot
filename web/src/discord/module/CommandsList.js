@@ -1,4 +1,4 @@
-const {Collection} = require("discord.js");
+const {Collection, EmbedBuilder} = require("discord.js");
 
 function commandsList(client) {
     // command collection create
@@ -19,7 +19,52 @@ function commandsList(client) {
         execute: (message, args) => {
             message.channel.send(`안녕하세요! ${message.author.username}`);
         }
-    })
+    });
+
+    client.commands.set('출석', {
+        name: '출석',
+        description: '출석부 등록',
+        execute: (message, args) => {
+            message.channel.send(`출석되었습니다! ${message.member.nickname}`);
+        }
+    });
+
+    // client.commands.set('명령어', {
+    //     name: '명령어',
+    //     description: '명령어 리스트 출력',
+    //     execute: (message, args) => {
+    //         // 명령어 목록 생성
+    //         const commandNames = client.commands.map(cmd => `**${cmd.name}**: ${cmd.description}`).join('\n');
+    //         message.channel.send(`다음은 사용 가능한 명령어 목록입니다:\n${commandNames}`);
+    //     }
+    // });
+
+    client.commands.set('명령어', {
+        name: '명령어',
+        description: '명령어 리스트 출력',
+        execute: async(message, args) => {
+            try {
+                // 명령어 목록 생성
+                const commands = client.commands.map(cmd => ({
+                    name: cmd.name,
+                    description: cmd.description
+                }));
+
+                // 임베드 메시지 생성
+                const embed = new EmbedBuilder()
+                    .setTitle('사용 가능한 명령어 목록')
+                    .setColor('#0099ff')
+                    .setDescription(commands.map(cmd => `**${cmd.name}**: ${cmd.description}`).join('\n'))
+                    .setTimestamp();
+
+                // 임베드 메시지 전송
+                await message.channel.send({ embeds: [embed] });
+            } catch (e) {
+                console.error(`명령어 리스트 출력 중 에러 발생 ${e}`);
+            }
+
+        }
+    });
 
     // 별칭 등록 p -> ping
     client.aliases.set('p', 'ping');
