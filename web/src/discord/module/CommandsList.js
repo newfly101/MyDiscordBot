@@ -4,14 +4,14 @@ function commandsList(client) {
     // command collection create
     client.aliases = new Collection();
 
-    // command register : ex) ping
-    client.commands.set('ping', {
-        name: 'ping',
-        description: 'Replies with Pong!',
-        execute: (message, args) => {
-            message.channel.send('Pong!');
-        }
-    });
+    // // command register : ex) ping
+    // client.commands.set('ping', {
+    //     name: 'ping',
+    //     description: 'Replies with Pong!',
+    //     execute: (message, args) => {
+    //         message.channel.send('Pong!');
+    //     }
+    // });
 
     client.commands.set('안녕', {
         name: '안녕',
@@ -29,20 +29,10 @@ function commandsList(client) {
         }
     });
 
-    // client.commands.set('명령어', {
-    //     name: '명령어',
-    //     description: '명령어 리스트 출력',
-    //     execute: (message, args) => {
-    //         // 명령어 목록 생성
-    //         const commandNames = client.commands.map(cmd => `**${cmd.name}**: ${cmd.description}`).join('\n');
-    //         message.channel.send(`다음은 사용 가능한 명령어 목록입니다:\n${commandNames}`);
-    //     }
-    // });
-
     client.commands.set('명령어', {
         name: '명령어',
         description: '명령어 리스트 출력',
-        execute: async(message, args) => {
+        execute: async (message, args) => {
             try {
                 // 명령어 목록 생성
                 const commands = client.commands.map(cmd => ({
@@ -58,7 +48,7 @@ function commandsList(client) {
                     .setTimestamp();
 
                 // 임베드 메시지 전송
-                await message.channel.send({ embeds: [embed] });
+                await message.channel.send({embeds: [embed]});
             } catch (e) {
                 console.error(`명령어 리스트 출력 중 에러 발생 ${e}`);
             }
@@ -67,25 +57,9 @@ function commandsList(client) {
     });
 
     // 별칭 등록 p -> ping
-    client.aliases.set('p', 'ping');
+    // client.aliases.set('p', 'ping');
     client.aliases.set('ㅎㅇ', '안녕');
-
-
+    client.aliases.set('ㅊ', '출석');
 }
-
-// const commandsList = [
-//     {
-//         name: 'ping',
-//         description: 'Replies with Pong!',
-//         execute: (message, args) => {
-//             message.channel.send('Pong!');
-//         }
-//     },
-//     {
-//         name: '명령어',
-//         description: '명령어 리스트 출력',
-//     }
-// ];
-
 
 module.exports = commandsList;
