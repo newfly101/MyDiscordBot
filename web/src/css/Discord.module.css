@@ -12,7 +12,8 @@
 }
 .wrapper {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    /*grid-template-columns: 1fr 1fr;*/
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     /*grid-template-rows: 100px 100px;*/
     padding: 0 0 20px 0;
 }
@@ -54,4 +55,64 @@
     width: 20px;
     height: 20px;
     margin-left: 5px;
+}
+
+/* 체크박스 스타일 */
+.checkbox {
+    width: 20px;
+    height: 20px;
+    background-color: #efefef;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+/* 체크 상태를 나타낼 때 사용되는 스타일 */
+.checkbox::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    width: 8px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0; /* 처음에는 체크 표시를 숨김 */
+}
+
+/* 클릭된 상태를 표시하는 효과 */
+.checkbox.active {
+    background-color: #00ff3c;
+    border-color: #00b217;
+}
+
+.checkbox.active::after {
+    opacity: 1; /* 체크 표시를 보여줌 */
+}
+
+.addTodo {
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+}
+.addTodo input {
+    max-width: 400px;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #007bff;
+    padding: 8px 0 8px 0;
+    text-underline: lightblue;
+    margin-left: 5px;
+}
+.addTodo input:focus {
+    max-width: 400px;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #007bff;
+    padding: 8px 0 8px 0;
+    outline: none;
+    box-shadow: none;
 }

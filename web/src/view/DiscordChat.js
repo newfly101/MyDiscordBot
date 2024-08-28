@@ -3,7 +3,12 @@ import classes from "../css/Discord.module.css";
 
 const DiscordChat = () => {
     const [logs, setLogs] = useState([]);
+    const [isChecked, setIsChecked] = useState(false);
 
+    const toggleCheckBox =  () => {
+        setIsChecked(!isChecked);
+        console.log(isChecked);
+    }
     useEffect(() => {
         async function getLogs() {
             try {
@@ -25,11 +30,14 @@ const DiscordChat = () => {
         <>
             <div className={classes.wrapper}>
                 <div>Calendar</div>
-                <section>
-                    <button className={classes.todoTemplate} data-icon="alone">
-                        개인플젝
-                    </button>
-                </section>
+                <article>
+                    <button className={classes.todoTemplate} data-icon="alone">&#36;&#123;할일제목&#125;</button>
+                    <div className={classes.addTodo}>
+                        <span className={`${classes.checkbox} ${isChecked ? classes.active : ''}`}
+                              onClick={toggleCheckBox}/>
+                        <input type='text' placeholder="할 일 입력"/>
+                    </div>
+                </article>
             </div>
             <div className={classes.chatRoom}>
                 {logs && logs.map((log, index) => (
