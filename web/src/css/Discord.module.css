@@ -20,7 +20,12 @@
     display: inline-flex;
     /*align-items: center;*/
     /*justify-content: center;*/
-    padding: 8px 16px;
+    padding: 8px;
+    background-color: #efefef;
+    border-radius: 300px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
 }
 .todoTemplate::before {
     content: '';
@@ -40,4 +45,13 @@
 }
 .todoTemplate[data-icon="alone"]::before {
     background-image: url("../../public/seeonlyme.svg");
+}
+.todoTemplate::after {
+    content: '';
+    background-image: url('../../public/todoAddBtn.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
 }
