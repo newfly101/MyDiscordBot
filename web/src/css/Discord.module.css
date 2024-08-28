@@ -10,3 +10,34 @@
     justify-content: space-between;
     flex-direction: column;
 }
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /*grid-template-rows: 100px 100px;*/
+    padding: 0 0 20px 0;
+}
+.todoTemplate{
+    display: inline-flex;
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    padding: 8px 16px;
+}
+.todoTemplate::before {
+    content: '';
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+.todoTemplate[data-icon="all"]::before {
+    background-image: url("../../public/userIcon.svg");
+}
+.todoTemplate[data-icon="follow"]::before {
+    background-image: url("../../public/follower.svg");
+}
+.todoTemplate[data-icon="alone"]::before {
+    background-image: url("../../public/seeonlyme.svg");
+}

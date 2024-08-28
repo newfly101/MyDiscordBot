@@ -9,7 +9,7 @@ const DiscordChat = () => {
             try {
                 const response = await fetch('http://localhost:3001/logs');
                 const data = await response.json();
-                // console.log(data);
+                console.log(data);
                 setLogs(data);
             } catch (error) {
                 console.log('Error fetching logs', error);
@@ -22,14 +22,21 @@ const DiscordChat = () => {
     }, []);
 
     return (
-        <div>
-            <div>Discord Chat</div>
+        <>
+            <div className={classes.wrapper}>
+                <div>Calendar</div>
+                <section>
+                    <button className={classes.todoTemplate} data-icon="alone">
+                        개인플젝
+                    </button>
+                </section>
+            </div>
             <div className={classes.chatRoom}>
                 {logs && logs.map((log, index) => (
                     <p key={index}>{log}</p>
                 ))}
             </div>
-        </div>
+        </>
     );
 };
 
