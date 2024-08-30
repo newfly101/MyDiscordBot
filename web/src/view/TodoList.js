@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import classes from "../css/Discord.module.css";
 
 const TodoList = () => {
@@ -32,7 +32,7 @@ const TodoList = () => {
         setTodos(newTodos);
     }
 
-    const handleInputSubmit = (index, e) => {
+    const handleInputSubmit = useCallback((index, e) => {
         if (todos[index].todoText?.trim()) { // todo #trim() !== 0 이 값을 추가해줌
             const newTodos = [...todos];
             const newTodoId = newTodos[index].items.length + 1;
@@ -48,7 +48,7 @@ const TodoList = () => {
             setTodos(newTodos);
         }
         console.log("JSON => " + JSON.stringify(todos));
-    };
+    }, [todos]);
 
     useEffect(() => {
         // todo #input창 생성 시 focus 주기 필요함(편의성** )
@@ -70,7 +70,7 @@ const TodoList = () => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [todos]);
+    }, [todos, handleInputSubmit]);
 
     return (
         <div className={classes.test}>
@@ -96,7 +96,7 @@ const TodoList = () => {
                             <input
                                 type='text'
                                 placeholder="할 일 입력"
-                                value={todo.todoText}
+                                value={todo.todoText || ''}
                                 onChange={(e) => handleInputChange(index, e)}
                                 onKeyDown={(e) => {
                                     e.key === 'Enter' && handleInputSubmit(index, e);
