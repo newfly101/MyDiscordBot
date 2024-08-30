@@ -44,90 +44,87 @@ const TodoList = () => {
     }, [inputRef, todoText]);
 
     return (
-        <>
+        <div className={classes.test}>
             <article>
-                <div>
-                    <button className={classes.todoTemplate} data-icon="alone"
-                            onClick={addTodoComponent}>&#36;&#123;할일제목&#125;</button>
-                    {todos.map((todo, index) => (
-                        <div className={classes.addTodo}>
+                <button className={classes.todoTemplate} data-icon="alone"
+                        onClick={addTodoComponent}>&#36;&#123;할일제목&#125;</button>
+                {todos.map((todo, index) => (
+                    <div className={classes.addTodo}>
                             <span className={`${classes.checkbox} ${isChecked ? classes.active : ''}`}
                                   onClick={toggleCheckBox}/>
-                            <label>{todo}</label>
-                        </div>
-                    ))}
-                    {addTodoVisible && (
-                        <div className={classes.addTodo} ref={inputRef}>
+                        <label>{todo}</label>
+                    </div>
+                ))}
+                {addTodoVisible && (
+                    <div className={classes.addTodo} ref={inputRef}>
                             <span className={`${classes.checkbox} ${isChecked ? classes.active : ''}`}
                                   onClick={toggleCheckBox}/>
-                            <input
-                                type='text'
-                                placeholder="할 일 입력"
-                                value={todoText}
-                                onChange={handleInputChange}
-                                onKeyDown={(e) => {
-                                    e.key === 'Enter' && handleInputSubmit(e);
-                                }}
-                            />
-                        </div>
-                    )}
-                </div>
-
-                <div>
-                    <button className={classes.todoTemplate} data-icon="alone"
-                            onClick={addTodoComponent}>&#36;&#123;할일제목&#125;</button>
-                    {todos.map((todo, index) => (
-                        <div className={classes.addTodo}>
-                            <span className={`${classes.checkbox} ${isChecked ? classes.active : ''}`}
-                                  onClick={toggleCheckBox}/>
-                            <label>{todo}</label>
-                        </div>
-                    ))}
-                    {addTodoVisible && (
-                        <div className={classes.addTodo} ref={inputRef}>
-                            <span className={`${classes.checkbox} ${isChecked ? classes.active : ''}`}
-                                  onClick={toggleCheckBox}/>
-                            <input
-                                type='text'
-                                placeholder="할 일 입력"
-                                value={todoText}
-                                onChange={handleInputChange}
-                                onKeyDown={(e) => {
-                                    e.key === 'Enter' && handleInputSubmit(e);
-                                }}
-                            />
-                        </div>
-                    )}
-                </div>
-
-                <div>
-                    <button className={classes.todoTemplate} data-icon="alone"
-                            onClick={addTodoComponent}>&#36;&#123;할일제목&#125;</button>
-                    {todos.map((todo, index) => (
-                        <div className={classes.addTodo}>
-                            <span className={`${classes.checkbox} ${isChecked ? classes.active : ''}`}
-                                  onClick={toggleCheckBox}/>
-                            <label>{todo}</label>
-                        </div>
-                    ))}
-                    {addTodoVisible && (
-                        <div className={classes.addTodo} ref={inputRef}>
-                            <span className={`${classes.checkbox} ${isChecked ? classes.active : ''}`}
-                                  onClick={toggleCheckBox}/>
-                            <input
-                                type='text'
-                                placeholder="할 일 입력"
-                                value={todoText}
-                                onChange={handleInputChange}
-                                onKeyDown={(e) => {
-                                    e.key === 'Enter' && handleInputSubmit(e);
-                                }}
-                            />
-                        </div>
-                    )}
-                </div>
+                        <input
+                            type='text'
+                            placeholder="할 일 입력"
+                            value={todoText}
+                            onChange={handleInputChange}
+                            onKeyDown={(e) => {
+                                e.key === 'Enter' && handleInputSubmit(e);
+                            }}
+                        />
+                    </div>
+                )}
             </article>
-        </>
+            <article>
+                <button className={classes.todoTemplate} data-icon="alone"
+                        onClick={addTodoComponent}>&#36;&#123;할일제목&#125;</button>
+                {todos.map((todo, index) => (
+                    <div className={classes.addTodo}>
+                            <span className={`${classes.checkbox} ${isChecked ? classes.active : ''}`}
+                                  onClick={toggleCheckBox}/>
+                        <label>{todo}</label>
+                    </div>
+                ))}
+                {addTodoVisible && (
+                    <div className={classes.addTodo} ref={inputRef}>
+                            <span className={`${classes.checkbox} ${isChecked ? classes.active : ''}`}
+                                  onClick={toggleCheckBox}/>
+                        <input
+                            type='text'
+                            placeholder="할 일 입력"
+                            value={todoText}
+                            onChange={handleInputChange}
+                            onKeyDown={(e) => {
+                                e.key === 'Enter' && handleInputSubmit(e);
+                            }}
+                        />
+                    </div>
+                )}
+
+            </article>
+            <article>
+                    <button className={classes.todoTemplate} data-icon="alone"
+                            onClick={addTodoComponent}>&#36;&#123;할일제목&#125;</button>
+                    {todos.map((todo, index) => (
+                        <div className={classes.addTodo}>
+                            <span className={`${classes.checkbox} ${isChecked ? classes.active : ''}`}
+                                  onClick={toggleCheckBox}/>
+                            <label>{todo}</label>
+                        </div>
+                    ))}
+                    {addTodoVisible && (
+                        <div className={classes.addTodo} ref={inputRef}>
+                            <span className={`${classes.checkbox} ${isChecked ? classes.active : ''}`}
+                                  onClick={toggleCheckBox}/>
+                            <input
+                                type='text'
+                                placeholder="할 일 입력"
+                                value={todoText}
+                                onChange={handleInputChange}
+                                onKeyDown={(e) => {
+                                    e.key === 'Enter' && handleInputSubmit(e);
+                                }}
+                            />
+                        </div>
+                    )}
+            </article>
+        </div>
     );
 };
 

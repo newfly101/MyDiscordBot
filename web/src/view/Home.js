@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Friends from "./Friends";
 import classes from "../css/Home.module.css";
 import Profile from "./MyProfile";
