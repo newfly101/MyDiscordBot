@@ -1,14 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import classes from "../css/Discord.module.css";
+import TodoList from "./TodoList";
+import TodoCalendar from "./TodoCalendar";
 
 const DiscordChat = () => {
     const [logs, setLogs] = useState([]);
-    const [isChecked, setIsChecked] = useState(false);
 
-    const toggleCheckBox =  () => {
-        setIsChecked(!isChecked);
-        console.log(isChecked);
-    }
     useEffect(() => {
         async function getLogs() {
             try {
@@ -29,15 +26,8 @@ const DiscordChat = () => {
     return (
         <>
             <div className={classes.wrapper}>
-                <div>Calendar</div>
-                <article>
-                    <button className={classes.todoTemplate} data-icon="alone">&#36;&#123;할일제목&#125;</button>
-                    <div className={classes.addTodo}>
-                        <span className={`${classes.checkbox} ${isChecked ? classes.active : ''}`}
-                              onClick={toggleCheckBox}/>
-                        <input type='text' placeholder="할 일 입력"/>
-                    </div>
-                </article>
+                <TodoCalendar />
+                <TodoList />
             </div>
             <div className={classes.chatRoom}>
                 {logs && logs.map((log, index) => (
